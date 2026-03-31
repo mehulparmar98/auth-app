@@ -1,12 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/protected', require('./routes/protected'));
-app.use('/notes', require('./routes/notes'));
+// app.use('/notes', require('./routes/notes'));
 // DB connect
 connectDB();
 

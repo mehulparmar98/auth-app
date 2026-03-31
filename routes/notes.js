@@ -3,6 +3,17 @@ const router = express.Router();
 const Note = require('../models/note');
 const auth = require('../middleware/auth');
 
+const auth = require('../middleware/auth');
+const roleCheck = require('../middleware/role');
+
+// 🔥 only admin can delete
+router.delete('/:id', auth, roleCheck('admin'), deleteNote);
+
+router.post('/', auth, createNote);
+router.get('/', auth, getNotes);
+router.put('/:id', auth, updateNote);
+router.delete('/:id', auth, deleteNote);
+
 // POST (note add)
 router.post('/', auth, async (req, res) => {
   if (!req.body.text) {
